@@ -1,39 +1,64 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# soundify
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A powerful Flutter library for contextual audio and sensory feedback — enhance your app's accessibility and interactivity using intuitive sound cues and sensory responses.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- 🎯 **Contextual Audio Triggers** — Automatically respond to gestures, device motion, and state changes.
+- 🔊 **Dynamic Tone Generation** — Create custom beeps and tones with adjustable frequency and duration.
+- 🗣️ **Text-to-Speech** — Announce events using synthesized speech.
+- 🤝 **Haptic Feedback Integration** — Combine sound with tactile feedback (where available).
+- 🧠 **Customizable Rules** — Define when and how sounds should trigger.
+- 🥇 **Sound Layering & Prioritization** — Manage overlapping audio cues with priorities.
 
-## Getting started
+## Getting Started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add `soundify` to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  soundify: ^0.1.0
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+final soundify = Soundify(
+  rules: [
+    SoundRules.swipe(minVelocity: 600.0),
+    SoundRules.shake(),
+    SoundRules.tap(),
+    SoundRules.stateSuccess(),
+    SoundRules.announce(text: 'Action completed'),
+    SoundRules.beep(frequency: 440.0),
+  ],
+);
+void main() {
+  SoundifyWrapper(
+    soundify: soundify,
+    child: Text('Swipe, Tap, or Shake Me!'),
+  );
+}
 ```
 
-## Additional information
+## Example
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+void main() {
+ElevatedButton(
+  onPressed: () => soundify.trigger(null, data: 'success'),
+  child: const Text('Success'),
+);
+}
+```
+
+## Roadmap
+
+- [ ] Rule chaining and condition building
+- [ ] Custom audio asset support
+- [ ] Advanced haptic configuration
+- [ ] Web and desktop support
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details — Contribute, fork, and enjoy!
